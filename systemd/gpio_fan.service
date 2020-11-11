@@ -1,0 +1,14 @@
+[Unit]
+Description=Control gpio fan control service
+After=multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/python3 /usr/src/gpio_fan/main.py --pid /var/run/gpio_fan.pid 
+Restart=always
+PIDFile=/var/run/gpio_fan.pid
+WorkingDirectory=/usr/src/gpio_fan
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
